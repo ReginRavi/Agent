@@ -137,6 +137,40 @@ agent1/
 └── run.sh                      # Startup script
 ```
 
+### Visual Architecture
+
+```mermaid
+graph TD
+    User[User] -->|Interacts| Agent[Agent Core<br/>(agent.py)]
+    Agent -->|Uses| Registry[Tool Registry<br/>(tools/__init__.py)]
+    
+    Registry -->|Imports| FileOps[File Operations<br/>(file_ops.py)]
+    Registry -->|Imports| GitOps[Git Operations<br/>(git_ops.py)]
+    Registry -->|Imports| CodeAnalysis[Code Analysis<br/>(code_analysis.py)]
+    Registry -->|Imports| NetworkOps[Network Operations<br/>(network_ops.py)]
+    Registry -->|Imports| EnvOps[Environment<br/>(environment.py)]
+    Registry -->|Imports| DataProc[Data Processing<br/>(data_processing.py)]
+    Registry -->|Imports| TextUtils[Text Utilities<br/>(text_utils.py)]
+    Registry -->|Imports| ArchiveOps[Archive Operations<br/>(archive_ops.py)]
+    Registry -->|Imports| SysMon[System Monitoring<br/>(system_monitoring.py)]
+
+    subgraph "Tool Modules (44 Tools)"
+        FileOps
+        GitOps
+        CodeAnalysis
+        NetworkOps
+        EnvOps
+        DataProc
+        TextUtils
+        ArchiveOps
+        SysMon
+    end
+    
+    style Agent fill:#f9f,stroke:#333,stroke-width:2px
+    style Registry fill:#bbf,stroke:#333,stroke-width:2px
+    style User fill:#fff,stroke:#333,stroke-width:2px
+```
+
 **Benefits**:
 - ✅ **Maintainable**: Each module ~200-250 lines
 - ✅ **Extensible**: Add new tools by creating/extending modules
