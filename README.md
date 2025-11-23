@@ -139,36 +139,86 @@ agent1/
 
 ### Visual Architecture
 
-```mermaid
-graph TD
-    User[User] -->|Interacts| Agent[Agent Core<br/>(agent.py)]
-    Agent -->|Uses| Registry[Tool Registry<br/>(tools/__init__.py)]
-    
-    Registry -->|Imports| FileOps[File Operations<br/>(file_ops.py)]
-    Registry -->|Imports| GitOps[Git Operations<br/>(git_ops.py)]
-    Registry -->|Imports| CodeAnalysis[Code Analysis<br/>(code_analysis.py)]
-    Registry -->|Imports| NetworkOps[Network Operations<br/>(network_ops.py)]
-    Registry -->|Imports| EnvOps[Environment<br/>(environment.py)]
-    Registry -->|Imports| DataProc[Data Processing<br/>(data_processing.py)]
-    Registry -->|Imports| TextUtils[Text Utilities<br/>(text_utils.py)]
-    Registry -->|Imports| ArchiveOps[Archive Operations<br/>(archive_ops.py)]
-    Registry -->|Imports| SysMon[System Monitoring<br/>(system_monitoring.py)]
+### Visual Architecture
 
-    subgraph "Tool Modules (44 Tools)"
-        FileOps
-        GitOps
-        CodeAnalysis
-        NetworkOps
-        EnvOps
-        DataProc
-        TextUtils
-        ArchiveOps
-        SysMon
-    end
+```mermaid
+classDiagram
+    class Agent {
+        +run(contents)
+        +model: str
+        +tools: dict
+    }
     
-    style Agent fill:#f9f,stroke:#333,stroke-width:2px
-    style Registry fill:#bbf,stroke:#333,stroke-width:2px
-    style User fill:#fff,stroke:#333,stroke-width:2px
+    class ToolRegistry {
+        +ALL_TOOLS: dict
+    }
+
+    class FileOps {
+        +read_file()
+        +write_file()
+        +delete_file()
+        +append_to_file()
+        +find_replace()
+    }
+
+    class GitOps {
+        +git_status()
+        +git_commit()
+        +git_push()
+        +git_pull()
+        +git_branch()
+    }
+
+    class CodeAnalysis {
+        +analyze_code()
+        +find_todos()
+        +count_lines()
+    }
+
+    class NetworkOps {
+        +web_search()
+        +http_request()
+        +execute_cmd()
+    }
+
+    class Environment {
+        +list_dir()
+        +install_pkg()
+        +sys_info()
+    }
+
+    class DataProc {
+        +read_json()
+        +read_csv()
+        +read_yaml()
+    }
+
+    class TextUtils {
+        +regex_search()
+        +format_text()
+        +base64_ops()
+    }
+
+    class ArchiveOps {
+        +create_zip()
+        +extract_zip()
+    }
+
+    class SysMon {
+        +list_procs()
+        +get_stats()
+    }
+
+    Agent --> ToolRegistry : Uses
+    ToolRegistry --> FileOps : Imports
+    ToolRegistry --> GitOps : Imports
+    ToolRegistry --> CodeAnalysis : Imports
+    ToolRegistry --> NetworkOps : Imports
+    ToolRegistry --> Environment : Imports
+    ToolRegistry --> DataProc : Imports
+    ToolRegistry --> TextUtils : Imports
+    ToolRegistry --> ArchiveOps : Imports
+    ToolRegistry --> SysMon : Imports
 ```
 
 **Benefits**:
